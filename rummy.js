@@ -9,6 +9,7 @@ var players = 2;
 var currentPlayer = -1;
 var gameRunning = false;
 var animationRunning = false;
+var fullscreen = false;
 
 function drawArrow(centerX, centerY){
     var centerA = centerX - 200;
@@ -47,7 +48,7 @@ function animate(){
     }
 }
 
-function initAnimation(){
+function initCanvas(){
     if (canvas.getContext) {
         //set size
         canvas.width = window.innerWidth;
@@ -98,10 +99,25 @@ function next(){
     }
 }
 
+function toggleFullscreen(){
+    if(fullscreen){
+        fullscreen = false;
+        document.exitFullscreen();
+    }else{
+        fullscreen = true;
+        document.getElementsByTagName('body')[0].requestFullscreen();
+    }
+    initCanvas();
+}
+
 function start(){
     center.innerHTML = "";
     gameRunning = true;
-    initAnimation();
     currentPlayer++;
+    if(!fullscreen){
+        toggleFullscreen();
+    }else{
+        initCanvas();
+    }
     drawArrow(centerX, centerY + 100);
 }

@@ -34,3 +34,10 @@ body {
 #start {
     font-size: 1.5rem;
 }
+#fullscreen {
+    position: absolute;
+    right: 0;
+    top: 0;
+    cursor: pointer;
+    font-size: 1.5rem;
+}
