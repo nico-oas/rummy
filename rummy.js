@@ -39,7 +39,7 @@ function animate(){
     let offset = Math.sin((Math.PI / 180)*(-currentRotation)).toFixed(2);
     canvas.style.margin = "0 0 0 " + offset*globalOffset;
     rotate(1, {x: centerX, y: centerY});
-    drawArrow(centerX, centerY + 100);
+    drawArrow(centerX, centerY + window.innerWidth/100);
     currentRotation = (currentRotation + 1)%360;
     if(wantedRotation != currentRotation){
         requestAnimationFrame(animate);
@@ -114,10 +114,6 @@ function start(){
     center.innerHTML = "";
     gameRunning = true;
     currentPlayer++;
-    if(!fullscreen){
-        toggleFullscreen();
-    }else{
-        initCanvas();
-    }
-    drawArrow(centerX, centerY + 100);
+    initCanvas();
+    drawArrow(centerX, centerY + window.innerWidth/100);
 }
