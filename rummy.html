@@ -1,0 +1,22 @@
+<html>
+    <head>
+        <link rel="stylesheet" type="text/css" href="rummy.css">
+    </head>
+    <body>
+        <div id="center" onclick="next()">
+            <div>
+                <span>Anzahl Spieler</span>
+            </div>
+            <div id="playereditor">
+                <button id="decrease" onclick="event.stopPropagation(); decrease();" disabled>-</button>
+                <span id="count">2</span>
+                <button id="increase" onclick="event.stopPropagation(); increase();">+</button>
+            </div>
+            <div>
+                <button id="start" onclick="event.stopPropagation(); start();">START</button>
+            </div>
+        </div>
+        <canvas id="canvas"></canvas>
+        <script src="rummy.js"></script>
+    </body>
+</html>

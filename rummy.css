@@ -1,0 +1,36 @@
+body {
+    position: relative;
+    overflow: hidden;
+    background-color: #222;
+    color: whitesmoke;
+}
+#canvas {
+    width: 100%;
+    height: 100%;
+}
+#center {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: 3rem;
+    font-family: sans-serif;
+}
+#playereditor {
+    display: flex;
+    align-items: center;
+}
+#playereditor>button {
+    width: 3rem;
+    height: 3rem;
+    font-size: 2rem;
+}
+#playereditor>span {
+    padding: 1rem;
+}
+#start {
+    font-size: 1.5rem;
+}
