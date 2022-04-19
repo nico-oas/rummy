@@ -12,6 +12,7 @@ var animationRunning = false;
 var fullscreen = false;
 var totalSeconds = 0;
 var currentSeconds = 0;
+var textOffset = 4 * parseFloat(getComputedStyle(document.documentElement).fontSize);
 
 function drawArrow(centerX, centerY){
     var centerA = centerX - 200;
@@ -23,9 +24,9 @@ function drawArrow(centerX, centerY){
     ctx.lineTo(centerB, centerY);
     ctx.fill();
     ctx.textAlign = "center";
-    ctx.font = "3rem sans-serif";
-    ctx.fillStyle = "black";
-    ctx.fillText("Spieler " + (currentPlayer+1), centerX, centerY + 100)
+    ctx.font = "700 3rem sans-serif";
+    ctx.fillStyle = "#222";
+    ctx.fillText("Spieler " + (currentPlayer+1), centerX, centerY + textOffset);
     ctx.closePath();
 }
 
@@ -41,7 +42,7 @@ function animate(){
     let offset = Math.sin((Math.PI / 180)*(-currentRotation)).toFixed(2);
     canvas.style.margin = "0 0 0 " + offset*globalOffset;
     rotate(1, {x: centerX, y: centerY});
-    drawArrow(centerX, centerY + window.innerWidth/20);
+    drawArrow(centerX, centerY + textOffset);
     currentRotation = (currentRotation + 1)%360;
     if(wantedRotation != currentRotation){
         requestAnimationFrame(animate);
@@ -159,5 +160,5 @@ function start(){
     gameRunning = true;
     currentPlayer++;
     initCanvas();
-    drawArrow(centerX, centerY + window.innerWidth/20);
+    drawArrow(centerX, centerY + textOffset);
 }
