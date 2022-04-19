@@ -1,7 +1,7 @@
 const canvas = document.getElementById('canvas');
 const center = document.getElementById('center');
 const ctx = canvas.getContext('2d');
-var centerX, centerY;
+var centerX, centerY, countdown;
 var currentRotation = 0;
 var wantedRotation = 0;
 var globalOffset = 0;
@@ -10,6 +10,8 @@ var currentPlayer = -1;
 var gameRunning = false;
 var animationRunning = false;
 var fullscreen = false;
+var totalSeconds = 0;
+var currentSeconds = 0;
 
 function drawArrow(centerX, centerY){
     var centerA = centerX - 200;
@@ -39,7 +41,7 @@ function animate(){
     let offset = Math.sin((Math.PI / 180)*(-currentRotation)).toFixed(2);
     canvas.style.margin = "0 0 0 " + offset*globalOffset;
     rotate(1, {x: centerX, y: centerY});
-    drawArrow(centerX, centerY + window.innerWidth/100);
+    drawArrow(centerX, centerY + window.innerWidth/20);
     currentRotation = (currentRotation + 1)%360;
     if(wantedRotation != currentRotation){
         requestAnimationFrame(animate);
@@ -50,18 +52,13 @@ function animate(){
 
 function initCanvas(){
     if (canvas.getContext) {
-        //set size
         canvas.width = window.innerWidth;
         canvas.height = window.innerHeight;
         globalOffset = (window.innerWidth - window.innerHeight) / 2;
-    
-        //get center
         centerX = canvas.width / 2;
         centerY = canvas.height / 2;
     }
 }
-
-/* functions for setup */
 
 function decrease(){
     if(players > 2){
@@ -91,6 +88,8 @@ function increase(){
 
 function next(){
     if(gameRunning){
+        clearInterval(countdown);
+        resetTimer();
         currentPlayer = (currentPlayer+1)%players;
         wantedRotation = (360*currentPlayer)/players;
         if(!animationRunning){
@@ -110,10 +109,55 @@ function toggleFullscreen(){
     initCanvas();
 }
 
+function validateInputs(){
+    let minutes = document.getElementById("minutes");
+    let seconds = document.getElementById("seconds");
+    if(isNaN(minutes.value) || minutes.value > 5){
+        minutes.value = "1";
+    }
+    if(isNaN(seconds.value) || seconds.value >= 60){
+        seconds.value = "0";
+    }
+    if(seconds.value.length === 1) {
+        seconds.value = '0' + seconds.value;
+    }
+}
+
+function displayTime(seconds){
+    let s = seconds%60;
+    center.dataset.time = Math.floor(seconds/60) + ":" + (s<10?"0"+s:s);
+}
+
+function resetTimer(){
+    center.style.color = "";
+    if(totalSeconds > 0){
+        currentSeconds = totalSeconds;
+        displayTime(currentSeconds);
+        countdown = setInterval(function(){
+            currentSeconds--;
+            displayTime(currentSeconds);
+            if(currentSeconds < 5){
+                document.getElementsByTagName("html")[0].style.filter = "invert(1)";
+                setTimeout(function(){
+                    document.getElementsByTagName("html")[0].style.filter = "";
+                }, 500);
+            }
+            if(currentSeconds == 0){
+                clearInterval(countdown);
+                center.style.color = "red";
+            }
+        }, 1000);
+    }
+}
+
 function start(){
+    let minutes = document.getElementById("minutes").value;
+    let seconds = document.getElementById("seconds").value;
+    totalSeconds = parseInt(seconds) + 60*parseInt(minutes);
     center.innerHTML = "";
+    resetTimer();
     gameRunning = true;
     currentPlayer++;
     initCanvas();
-    drawArrow(centerX, centerY + window.innerWidth/100);
+    drawArrow(centerX, centerY + window.innerWidth/20);
 }

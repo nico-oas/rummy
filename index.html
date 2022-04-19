@@ -4,13 +4,21 @@
     </head>
     <body>
         <div id="center" onclick="next()">
-            <div>
-                <span>Anzahl Spieler</span>
-            </div>
             <div id="playereditor">
-                <button id="decrease" onclick="event.stopPropagation(); decrease();" disabled>-</button>
-                <span id="count">2</span>
-                <button id="increase" onclick="event.stopPropagation(); increase();">+</button>
+                <span>Spieler</span>
+                <div>
+                    <button id="decrease" onclick="event.stopPropagation(); decrease();" disabled>-</button>
+                    <span id="count">2</span>
+                    <button id="increase" onclick="event.stopPropagation(); increase();">+</button>
+                </div>
+            </div>
+            <div id="timeeditor">
+                <span>Zeitlimit</span>
+                <div>
+                    <input type="number" dir="rtl" min="0" max="5" id="minutes" value="1" onchange="validateInputs()">
+                    <span>:</span>
+                    <input type="number" dir="ltr" min="0" max="59" id="seconds" value="00" onchange="validateInputs()">
+                </div>
             </div>
             <div>
                 <button id="start" onclick="event.stopPropagation(); start();">START</button>
