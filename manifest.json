@@ -1,0 +1,10 @@
+{
+    "name": "Rummy Helper",
+    "short_name": "rummy",
+    "description": "A tool for keeping time and who's turn it is in a game of Rummy",
+    "lang": "de-DE",
+    "start_url": "/",
+    "display": "fullscreen",
+    "orientation": "landscape",
+    "theme_color": "#222"
+}
